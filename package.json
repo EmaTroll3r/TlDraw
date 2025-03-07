@@ -13,11 +13,12 @@
     "pdfjs-dist": "^3.11.174",
     "react-latex-next": "^3.0.0",
     "tldraw": "^3.7.2",
-    "vite": "^6.0.7"
+    "vite": "^6.2.0"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "prod": "vite --host --port 8888"
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
