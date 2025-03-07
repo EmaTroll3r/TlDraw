@@ -7,5 +7,5 @@ Inside your Tldraw directory
 <code>git clone https://github.com/EmaTroll3r/TlDraw.git</code>
 
 <h1>Running</h1>
-<code>npm run start</code>
+<code>npm run prod</code>
 
