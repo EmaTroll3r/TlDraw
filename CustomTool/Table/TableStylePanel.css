@@ -1,0 +1,32 @@
+.style-panel-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.style-panel-label {
+    margin-right: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.style-panel-input,
+.style-panel-select {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    transition: border-color 0.3s ease;
+    width: 3px;
+}
+
+.style-panel-input:focus,
+.style-panel-select:focus {
+    border-color: #007bff;
+    outline: none;
+}
