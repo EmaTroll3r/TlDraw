@@ -4,16 +4,10 @@ import {
     HTMLContainer,
     Rectangle2d,
     ShapeUtil,
-    TLGeoShape,
     TLResizeInfo,
-    TLShape,
     TLShapeId,
-    TLShapePartial,
     getDefaultColorTheme,
     resizeBox,
-	track,
-	useEditor,
-	useToasts,
 } from 'tldraw'
 
 import { TableShapeMigrations } from './table-shape-migrations'

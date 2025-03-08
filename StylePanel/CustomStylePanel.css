@@ -1,6 +1,7 @@
 .style-panel-section {
     display: flex;
     align-items: center;
+    justify-content: center; /* Center align horizontally */
     margin-bottom: 16px;
     margin-left: 8px;
     margin-right: 8px;
@@ -27,6 +28,25 @@
 
 .style-panel-input:focus,
 .style-panel-select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.style-panel-checkbox {
+    width: 20px; /* Increase the size of the checkbox */
+    height: 20px; /* Increase the size of the checkbox */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.style-panel-checkbox:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.style-panel-checkbox:focus {
     border-color: #007bff;
     outline: none;
 }

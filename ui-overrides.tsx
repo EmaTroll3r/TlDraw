@@ -19,16 +19,21 @@ import {
 	ExtrasGroup,
 	PreferencesGroup,
     TldrawUiMenuSubmenu,
+	computed,
 } from 'tldraw'
 
 //import { PdfPicker, Pdf } from './CustomTool/Pdf_Example/PdfPicker';
 //import { import_pdf } from './CustomTool/Pdf/pdf'
 //import { UploadPdf } from './CustomTool/Pdf/uploadPdf'
-import { TableStylePanel } from './CustomTool/Table/TableStylePanel'
 import { UploadImage } from './CustomTool/Images/UploadImage'
 import { import_images } from './CustomTool/Images/image'
 import { roomIdManager } from './roomIdManager'
 import { handleExport, handleImport } from './CustomTool/FileSystem/FileSystem';
+import { SlidesPanel } from './CustomTool/SlideShow/SlidesPanel';
+import { getSlides, $currentSlide, moveToSlide } from './CustomTool/SlideShow/useSlides';
+import './CustomTool/SlideShow/slides.css'
+import { CustomStylePanel } from './StylePanel/CustomStylePanel';
+
 
 function CustomMainMenu() {
     const editor = useEditor();
@@ -126,11 +131,12 @@ function FileSubmenu() {
 }
 
 export const uiOverrides: TLUiOverrides = {
+	
 	tools(editor, tools) {
 		tools.table = {
 			id: 'table',
 			icon: 'tool-table',
-			label: 'table',
+			label: 'Table',
 			kbd: 'c',
 			onSelect: () => {
 				editor.setCurrentTool('table')
@@ -145,9 +151,55 @@ export const uiOverrides: TLUiOverrides = {
 				editor.setCurrentTool('latex')
 			},
 		}
+		tools.slide = {
+			id: 'slide',
+			icon: 'group',
+			label: 'Slide',
+			kbd: 's',
+			onSelect: () => {
+				editor.setCurrentTool('slide')
+			}
+		}
 		return tools
 	},
+	actions(editor, actions) {
+		const $slides = computed('slides', () => getSlides(editor))
+		return {
+			...actions,
+			'next-slide': {
+				id: 'next-slide',
+				label: 'Next slide',
+				kbd: 'right',
+				onSelect() {
+					const slides = $slides.get()
+					const currentSlide = $currentSlide.get()
+					const index = slides.findIndex((s) => s.id === currentSlide?.id)
+					const nextSlide = slides[index + 1] ?? currentSlide ?? slides[0]
+					if (nextSlide) {
+						editor.stopCameraAnimation()
+						moveToSlide(editor, nextSlide)
+					}
+				},
+			},
+			'previous-slide': {
+				id: 'previous-slide',
+				label: 'Previous slide',
+				kbd: 'left',
+				onSelect() {
+					const slides = $slides.get()
+					const currentSlide = $currentSlide.get()
+					const index = slides.findIndex((s) => s.id === currentSlide?.id)
+					const previousSlide = slides[index - 1] ?? currentSlide ?? slides[slides.length - 1]
+					if (previousSlide) {
+						editor.stopCameraAnimation()
+						moveToSlide(editor, previousSlide)
+					}
+				},
+			},
+		}
+	},
 }
+
 
 export const components: TLComponents = {
 	Toolbar: (props) => {
@@ -160,6 +212,7 @@ export const components: TLComponents = {
 				<TldrawUiMenuItem {...tools['draw']} isSelected={useIsToolSelected(tools['draw'])} />
 				<TldrawUiMenuItem {...tools['eraser']} isSelected={useIsToolSelected(tools['eraser'])} />
 				
+				<TldrawUiMenuItem {...tools['slide']} isSelected={useIsToolSelected(tools['slide'])} />
 				{/*
 				<TldrawUiMenuItem {...tools['latex']} isSelected={useIsToolSelected(tools['latex'])} />
 				*/}
@@ -206,9 +259,12 @@ export const components: TLComponents = {
 			</DefaultKeyboardShortcutsDialog>
 		)
 	},
-	StylePanel: TableStylePanel,
+	StylePanel: CustomStylePanel,
 	MainMenu: CustomMainMenu,
+	HelperButtons: SlidesPanel,
 }
+
+
 
 export const assetUrls = {
     icons: {

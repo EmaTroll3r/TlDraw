@@ -14,14 +14,15 @@ import 'katex/dist/katex.min.css';
 import { TableShapeTool } from './CustomTool/Table/TableShapeTool'
 import { TableShapeUtil } from './CustomTool/Table/TableShapeUtil'
 import { components, uiOverrides, assetUrls } from './ui-overrides'
-import { ITableShape } from './CustomTool/Table/table-shape-types';
 import { LatexShapeTool } from './CustomTool/Latex/LatexShapeTool';
 import { LatexShapeUtil } from './CustomTool/Latex/LatexShapeUtil';
 import PdfEditorWrapper from './CustomTool/Pdf_Example/PdfEditorWrapper';
 import { handleExport } from './CustomTool/FileSystem/FileSystem';
+import { SlideShapeTool } from './CustomTool/SlideShow/SlideShapeTool';
+import { SlideShapeUtil } from './CustomTool/SlideShow/SlideShapeUtil';
 
-const customShapeUtils = [TableShapeUtil, LatexShapeUtil,];
-const customTools = [TableShapeTool, LatexShapeTool];
+const customShapeUtils = [TableShapeUtil, LatexShapeUtil, SlideShapeUtil];
+const customTools = [TableShapeTool, LatexShapeTool, SlideShapeTool];
 
 export let defaultRoomId = localStorage.getItem('roomId') || "tldrawFile-1";
 
