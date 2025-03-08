@@ -18,11 +18,12 @@ import { ITableShape } from './CustomTool/Table/table-shape-types';
 import { LatexShapeTool } from './CustomTool/Latex/LatexShapeTool';
 import { LatexShapeUtil } from './CustomTool/Latex/LatexShapeUtil';
 import PdfEditorWrapper from './CustomTool/Pdf_Example/PdfEditorWrapper';
+import { handleExport } from './CustomTool/FileSystem/FileSystem';
 
 const customShapeUtils = [TableShapeUtil, LatexShapeUtil,];
 const customTools = [TableShapeTool, LatexShapeTool];
 
-export let defaultRoomId = localStorage.getItem('roomId') || "myapp-2432423";
+export let defaultRoomId = localStorage.getItem('roomId') || "tldrawFile-1";
 
 let root: ReactDOM.Root | null = null;
 

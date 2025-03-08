@@ -9,3 +9,6 @@ Inside your Tldraw directory
 <h1>Running</h1>
 <code>npm run prod</code>
 
+<h1>Issue</h1>
+<code>WebSocket is already in CLOSING or CLOSED state.</code> When I try to import more than ones whitout reloading</br>
+<code>index.tsx:52  Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.</code>

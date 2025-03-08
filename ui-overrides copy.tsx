@@ -20,12 +20,14 @@ import {
 	PreferencesGroup,
 } from 'tldraw'
 
-import { PdfPicker, Pdf } from './CustomTool/Pdf_Example/PdfPicker';
+//import { PdfPicker, Pdf } from './CustomTool/Pdf_Example/PdfPicker';
+//import { import_pdf } from './CustomTool/Pdf/pdf'
+//import { UploadPdf } from './CustomTool/Pdf/uploadPdf'
 import { TableStylePanel } from './CustomTool/Table/TableStylePanel'
-import { import_pdf } from './CustomTool/Pdf/pdf'
-import { UploadPdf } from './CustomTool/Pdf/uploadPdf'
 import { UploadImage } from './CustomTool/Images/UploadImage'
 import { import_images } from './CustomTool/Images/image'
+import { roomIdManager } from './roomIdManager'
+import { handleExport, handleImport } from './CustomTool/FileSystem/FileSystem';
 
 /*
 function CustomMainMenu() {
@@ -123,27 +125,66 @@ function CustomMainMenu() {
 
 	// <DefaultMainMenuContent /> 
 	// packages/tldraw/src/lib/ui/components/MainMenu/DefaultMainMenuContent.tsx
+	
+    const handleImportFile = () => {
+        roomIdManager('myapp-243242355');
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            handleImport(editor.store, file);
+        }
+    };
 
     return (
         <>
             <DefaultMainMenu>
-
-				<TldrawUiMenuGroup id="basic">
-					<EditSubmenu />
-					<ViewSubmenu />
-					<ExportFileContentSubMenu />
-					<TldrawUiMenuItem
-                            id="open-images"
-                            label="Open Images"
-                            icon="file"
-                            readonlyOk
-                            onSelect={handleImportImages}
-                        />
-					<ExtrasGroup />
-				</TldrawUiMenuGroup>
-				<PreferencesGroup />
+                <TldrawUiMenuGroup id="basic">
+					{/*
+                    <TldrawUiMenuItem
+                        id="open-file"
+                        label="Open File"
+                        icon="file"
+                        readonlyOk
+                        onSelect={handleImportFile}
+                    />
+					*/}
+                    <TldrawUiMenuItem
+                        id="import-file"
+                        label="Import File"
+                        icon="file"
+                        readonlyOk
+                        onSelect={() => document.getElementById('file-input')?.click()}
+                    />
+                    <TldrawUiMenuItem
+                        id="export-file"
+                        label="Export File"
+                        icon="file"
+                        readonlyOk
+                        onSelect={() => handleExport(editor.store)}
+                    />
+                    <EditSubmenu />
+                    <ViewSubmenu />
+                    <ExportFileContentSubMenu />
+                    <TldrawUiMenuItem
+                        id="open-images"
+                        label="Open Images"
+                        icon="file"
+                        readonlyOk
+                        onSelect={handleImportImages}
+                    />
+                    <ExtrasGroup />
+                </TldrawUiMenuGroup>
+                <PreferencesGroup />
             </DefaultMainMenu>
-            
+            <input
+                type="file"
+                id="file-input"
+                accept=".tldr"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+            />
             {triggerImageUpload && <UploadImage onFilesSelect={handleImageFilesSelect} trigger={triggerImageUpload} />}
         </>
     );
@@ -151,10 +192,9 @@ function CustomMainMenu() {
 
 export const uiOverrides: TLUiOverrides = {
 	tools(editor, tools) {
-		// Create a tool item in the ui's context.
 		tools.table = {
 			id: 'table',
-			icon: 'color',
+			icon: 'tool-table',
 			label: 'table',
 			kbd: 'c',
 			onSelect: () => {
@@ -233,4 +273,10 @@ export const components: TLComponents = {
 	},
 	StylePanel: TableStylePanel,
 	MainMenu: CustomMainMenu,
+}
+
+export const assetUrls = {
+    icons: {
+        'tool-table': '/resources/Images/custom-table-icon.svg',
+    },
 }

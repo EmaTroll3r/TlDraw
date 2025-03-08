@@ -18,6 +18,7 @@ import {
 	ExportFileContentSubMenu,
 	ExtrasGroup,
 	PreferencesGroup,
+    TldrawUiMenuSubmenu,
 } from 'tldraw'
 
 //import { PdfPicker, Pdf } from './CustomTool/Pdf_Example/PdfPicker';
@@ -27,87 +28,7 @@ import { TableStylePanel } from './CustomTool/Table/TableStylePanel'
 import { UploadImage } from './CustomTool/Images/UploadImage'
 import { import_images } from './CustomTool/Images/image'
 import { roomIdManager } from './roomIdManager'
-
-/*
-function CustomMainMenu() {
-    const editor = useEditor();
-    const [triggerUpload, setTriggerUpload] = useState(false);
-    const [showPdfPicker, setShowPdfPicker] = useState(false);
-    const [triggerImageUpload, setTriggerImageUpload] = useState(false);
-
-    const handleImportPdf = () => {
-        setTriggerUpload(true);
-    };
-
-    const handleFileSelect = (file: File) => {
-        import_pdf(editor, file);
-        setTriggerUpload(false);
-    };
-
-    const handleOpenPdfPicker = () => {
-        setShowPdfPicker(true);
-    };
-
-    const handleClosePdfPicker = () => {
-        setShowPdfPicker(false);
-    };
-
-    const handleOpenPdf = (pdf: Pdf) => {
-        // Handle the opened PDF here
-        setShowPdfPicker(false);
-    };
-
-    const handleImportImages = () => {
-        setTriggerImageUpload(true);
-    };
-
-    const handleImageFilesSelect = (files: FileList) => {
-        import_images(editor, files);
-        setTriggerImageUpload(false);
-    };
-
-    if (showPdfPicker) {
-        return (
-            <PdfPicker onOpenPdf={handleOpenPdf} />
-        );
-    }
-
-    return (
-        <>
-            <DefaultMainMenu>
-                <div style={{ backgroundColor: 'thistle' }}>
-                    <TldrawUiMenuGroup id="example">
-                        <TldrawUiMenuItem
-                            id="import-pdf"
-                            label="Import PDF"
-                            icon="external-link"
-                            readonlyOk
-                            onSelect={handleImportPdf}
-                        />
-                        <TldrawUiMenuItem
-                            id="open-pdf-picker"
-                            label="Open PDF Picker"
-                            icon="file"
-                            readonlyOk
-                            onSelect={handleOpenPdfPicker}
-                        />
-						<TldrawUiMenuItem
-                            id="open-images"
-                            label="Open Images"
-                            icon="file"
-                            readonlyOk
-                            onSelect={handleImportImages}
-                        />
-                    </TldrawUiMenuGroup>
-                </div>
-                <DefaultMainMenuContent />
-            </DefaultMainMenu>
-            {triggerUpload && <UploadPdf onFileSelect={handleFileSelect} trigger={triggerUpload} />}
-            {triggerImageUpload && <UploadImage onFilesSelect={handleImageFilesSelect} trigger={triggerImageUpload} />}
-        </>
-    );
-}
-*/
+import { handleExport, handleImport } from './CustomTool/FileSystem/FileSystem';
 
 function CustomMainMenu() {
     const editor = useEditor();
@@ -124,24 +45,19 @@ function CustomMainMenu() {
 
 	// <DefaultMainMenuContent /> 
 	// packages/tldraw/src/lib/ui/components/MainMenu/DefaultMainMenuContent.tsx
-
-	const handleImportFile = () => {
-        roomIdManager('myapp-243242355');
+	
+    const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            handleImport(editor.store, file);
+        }
     };
 
     return (
         <>
             <DefaultMainMenu>
                 <TldrawUiMenuGroup id="basic">
-					{/*
-                    <TldrawUiMenuItem
-                        id="open-file"
-                        label="Open File"
-                        icon="file"
-                        readonlyOk
-                        onSelect={handleImportFile}
-                    />
-					*/}
+                    <FileSubmenu />
                     <EditSubmenu />
                     <ViewSubmenu />
                     <ExportFileContentSubMenu />
@@ -156,7 +72,55 @@ function CustomMainMenu() {
                 </TldrawUiMenuGroup>
                 <PreferencesGroup />
             </DefaultMainMenu>
+            
+            <input
+                type="file"
+                id="file-input"
+                accept=".tldr"
+                style={{ display: 'none' }}
+                onChange={handleFileImport}
+            />
             {triggerImageUpload && <UploadImage onFilesSelect={handleImageFilesSelect} trigger={triggerImageUpload} />}
+        </>
+    );
+}
+
+function FileSubmenu() {
+    const editor = useEditor();
+
+    const handleChangeFile = () => {
+        const input = prompt('Please enter the file name:');
+        if (input) {
+            console.log(`File name entered: ${input}`);
+            roomIdManager('tldrawFile-' + input);
+        }
+    };
+
+    return (
+        <>
+            <TldrawUiMenuSubmenu id="file" label="menu.file">
+                <TldrawUiMenuItem
+                    id="import-file"
+                    label="Import File"
+                    icon="file"
+                    readonlyOk
+                    onSelect={() => document.getElementById('file-input')?.click()}
+                />
+                <TldrawUiMenuItem
+                    id="export-file"
+                    label="Export File"
+                    icon="file"
+                    readonlyOk
+                    onSelect={() => handleExport(editor.store)}
+                />
+                <TldrawUiMenuItem
+                    id="open-file"
+                    label="Open File"
+                    icon="file"
+                    readonlyOk
+                    onSelect={handleChangeFile}
+                />
+            </TldrawUiMenuSubmenu>
         </>
     );
 }
