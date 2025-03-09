@@ -41,6 +41,7 @@ export function App({ roomId }: { roomId: string }) {
                 assetUrls={assetUrls}
                 onMount={(editor) => {
                     editor.updateInstanceState({ isGridMode: true });
+                    editor.user.updateUserPreferences({ colorScheme: 'dark' })
                 }}
                 store={store}
             />
