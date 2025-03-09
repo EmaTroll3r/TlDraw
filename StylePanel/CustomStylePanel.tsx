@@ -1,26 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     useEditor,
     useRelevantStyles,
     DefaultStylePanel,
     DefaultStylePanelContent,
     StyleProp,
+    getDefaultColorTheme,
+    useIsDarkMode,
+    DefaultColorStyle,
 } from 'tldraw';
 
 import { xCellsStyle, yCellsStyle, wantHeadStyle } from '../CustomTool/Table/table-shape-types';
 import { aspectRatioStyle } from '../CustomTool/SlideShow/slide-shape-types';
 import './CustomStylePanel.css'; // Importa il file CSS
+import { get } from 'http';
+
+export function getPrimaryColor() {
+    return getDefaultColorTheme({ isDarkMode: useIsDarkMode() }).black.solid;
+}
+
+export function getSecondaryColor() {
+    const hex = getPrimaryColor().replace(/^#/, '');
+
+    // Parse the r, g, b values
+    let r = parseInt(hex.slice(0, 2), 16);
+    let g = parseInt(hex.slice(2, 4), 16);
+    let b = parseInt(hex.slice(4, 6), 16);
+
+    // Invert each color component
+    r = parseInt((255 - r).toString(16).padStart(2, '0'), 16);
+    g = parseInt((255 - g).toString(16).padStart(2, '0'), 16);
+    b = parseInt((255 - b).toString(16).padStart(2, '0'), 16);
+
+    // Return the inverted color
+    return `#${r}${g}${b}`;
+}
 
 export function CustomStylePanel() {
     const editor = useEditor();
     const styles = useRelevantStyles();
     if (!styles) return null;
 
+    document.documentElement.style.setProperty('--primary-color', getPrimaryColor());
+    document.documentElement.style.setProperty('--secondary-color', getSecondaryColor());
+    console.log(getSecondaryColor());
 
     const x_cells = styles.get(xCellsStyle);
     const y_cells = styles.get(yCellsStyle);
     const want_head = styles.get(wantHeadStyle);
     const aspect_ratio = styles.get(aspectRatioStyle);
+
+    console.log(DefaultColorStyle);
 
     //console.log("aspect_ratio", aspect_ratio);
     //console.log("want_head", want_head);

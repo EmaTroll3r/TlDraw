@@ -1,3 +1,8 @@
+:root {
+    --primary-color: #007bff; /* Default primary color */
+    --secondary-color: #33ff34; /* Default secondary color */
+}
+
 .style-panel-section {
     display: flex;
     align-items: center;
@@ -10,43 +15,97 @@
 .style-panel-label {
     margin-right: 14px;
     font-weight: bold;
-    color: #333;
+    color: var(--primary-color);
 }
 
 .style-panel-input,
 .style-panel-select {
     flex: 1;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--primary-color);
     border-radius: 4px;
-    background-color: #f9f9f9;
+    background-color: var(--secondary-color);
     font-size: 14px;
-    color: #333;
+    color: var(--primary-color);
     transition: border-color 0.3s ease;
     width: 3px;
 }
 
 .style-panel-input:focus,
 .style-panel-select:focus {
-    border-color: #007bff;
+    border-color: var(--primary-color);
     outline: none;
 }
 
+/*
 .style-panel-checkbox {
-    width: 20px; /* Increase the size of the checkbox */
-    height: 20px; /* Increase the size of the checkbox */
-    border: 1px solid #ccc;
+    width: 20px; 
+    height: 20px;
+    border: 1px solid var(--secondary-color);
     border-radius: 4px;
-    background-color: #f9f9f9;
     transition: border-color 0.3s ease;
+    accent-color: var(--secondary-color);
 }
 
 .style-panel-checkbox:checked {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: var(--secondary-color); 
+    border-color: var(--primary-color);
 }
+*/
+/*
+.style-panel-checkbox {
+    width: 20px; 
+    height: 20px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+*/
 
+.style-panel-checkbox {
+    width: 20px; 
+    height: 20px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    /*transition: border-color 0.3s ease;*/
+    position: relative;
+    cursor: pointer;
+}
+    
+.style-panel-checkbox:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+    background-color: var(--secondary-color);
+    padding: 1px;
+}
+    
+.style-panel-checkbox:checked:after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid var(--primary-color);
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 2px;
+    left: 6px;
+}
+    
+
+
+/*
 .style-panel-checkbox:focus {
-    border-color: #007bff;
+    border-color: var(--primary-color);
     outline: none;
 }
+    */
