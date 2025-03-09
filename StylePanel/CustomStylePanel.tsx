@@ -50,7 +50,7 @@ export function CustomStylePanel() {
     const want_head = styles.get(wantHeadStyle);
     const aspect_ratio = styles.get(aspectRatioStyle);
 
-    console.log(DefaultColorStyle);
+    //console.log(DefaultColorStyle);
 
     //console.log("aspect_ratio", aspect_ratio);
     //console.log("want_head", want_head);

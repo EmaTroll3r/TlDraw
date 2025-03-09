@@ -11,6 +11,10 @@ localStorage.setItem('roomId', newRoomId);
     }
 }
 
+// Esponi la funzione globalmente
+(window as any).roomIdManager = roomIdManager;
+
+
 function RoomIdManager({ initialRoomId = defaultRoomId }: { initialRoomId?: string }) {
     const [roomId, setRoomId] = useState(initialRoomId);
     const [showRoomIdInput, setShowRoomIdInput] = useState(false);
