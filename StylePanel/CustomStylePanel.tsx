@@ -41,9 +41,9 @@ export function CustomStylePanel() {
     const styles = useRelevantStyles();
     if (!styles) return null;
 
-    document.documentElement.style.setProperty('--primary-color', getPrimaryColor());
-    document.documentElement.style.setProperty('--secondary-color', getSecondaryColor());
-    console.log(getSecondaryColor());
+    //document.documentElement.style.setProperty('--primary-color', getPrimaryColor());
+    //document.documentElement.style.setProperty('--secondary-color', getSecondaryColor());
+    //console.log(getSecondaryColor());
 
     const x_cells = styles.get(xCellsStyle);
     const y_cells = styles.get(yCellsStyle);
