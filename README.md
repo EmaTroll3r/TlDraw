@@ -2,7 +2,7 @@
 Inside your Tldraw directory
 </br>
 <code>git clone https://github.com/EmaTroll3r/TlDraw.git</code></br>
-<code>cd TlDraw</code>
+<code>cd TlDraw</code></br>
 <code>npm install tldraw</code></br>
 <code>npm install @tldraw/sync</code></br>
 <code>npm install vite</code></br>
