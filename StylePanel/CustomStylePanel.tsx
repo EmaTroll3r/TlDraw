@@ -39,11 +39,13 @@ export function getSecondaryColor() {
 export function CustomStylePanel() {
     const editor = useEditor();
     const styles = useRelevantStyles();
-    if (!styles) return null;
+    
 
     document.documentElement.style.setProperty('--primary-color', getPrimaryColor());
     document.documentElement.style.setProperty('--secondary-color', getSecondaryColor());
-    console.log(getSecondaryColor());
+    //console.log(getSecondaryColor());
+
+    if (!styles) return null;
 
     const x_cells = styles.get(xCellsStyle);
     const y_cells = styles.get(yCellsStyle);
