@@ -39,7 +39,6 @@ export function getSecondaryColor() {
 export function CustomStylePanel() {
     const editor = useEditor();
     const styles = useRelevantStyles();
-    
 
     document.documentElement.style.setProperty('--primary-color', getPrimaryColor());
     document.documentElement.style.setProperty('--secondary-color', getSecondaryColor());
