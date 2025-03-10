@@ -11,8 +11,14 @@ import 'tldraw/tldraw.css';
 import './styles.css';
 import 'katex/dist/katex.min.css';
 
+/*
 import { TableShapeTool } from './CustomTool/Table/TableShapeTool'
 import { TableShapeUtil } from './CustomTool/Table/TableShapeUtil'
+*/
+
+import { TableShapeTool } from './CustomTool/Pdf_Embedded/TableShapeTool';
+import { TableShapeUtil } from './CustomTool/Pdf_Embedded/TableShapeUtil';
+
 import { components, uiOverrides, assetUrls } from './ui-overrides'
 import { LatexShapeTool } from './CustomTool/Latex/LatexShapeTool';
 import { LatexShapeUtil } from './CustomTool/Latex/LatexShapeUtil';
