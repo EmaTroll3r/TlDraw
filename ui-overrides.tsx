@@ -159,6 +159,15 @@ export const uiOverrides: TLUiOverrides = {
 			onSelect: () => {
 				editor.setCurrentTool('slide')
 			}
+		},
+		tools.pdfElement = {
+			id: 'pdfElement',
+			icon: 'color',
+			label: 'Pdf Element',
+			kbd: 'p',
+			onSelect: () => {
+				editor.setCurrentTool('pdfElement')
+			}
 		}
 		return tools
 	},
@@ -212,7 +221,7 @@ export const components: TLComponents = {
 				<TldrawUiMenuItem {...tools['draw']} isSelected={useIsToolSelected(tools['draw'])} />
 				<TldrawUiMenuItem {...tools['eraser']} isSelected={useIsToolSelected(tools['eraser'])} />
 				
-				<TldrawUiMenuItem {...tools['slide']} isSelected={useIsToolSelected(tools['slide'])} />
+				<TldrawUiMenuItem {...tools['pdfElement']} isSelected={useIsToolSelected(tools['pdfElement'])} />
 				{/*
 				<TldrawUiMenuItem {...tools['latex']} isSelected={useIsToolSelected(tools['latex'])} />
 				*/}
@@ -242,6 +251,7 @@ export const components: TLComponents = {
 				<TldrawUiMenuItem {...tools['laser']} isSelected={useIsToolSelected(tools['laser'])} />
 				<TldrawUiMenuItem {...tools['frame']} isSelected={useIsToolSelected(tools['frame'])} />
 				<TldrawUiMenuItem {...tools['table']} isSelected={useIsToolSelected(tools['table'])} /> 
+				<TldrawUiMenuItem {...tools['slide']} isSelected={useIsToolSelected(tools['slide'])} />
 				
 				
 				{/* 

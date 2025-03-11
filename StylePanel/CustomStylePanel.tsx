@@ -14,6 +14,7 @@ import { xCellsStyle, yCellsStyle, wantHeadStyle } from '../CustomTool/Table/tab
 import { aspectRatioStyle } from '../CustomTool/SlideShow/slide-shape-types';
 import './CustomStylePanel.css'; // Importa il file CSS
 import { get } from 'http';
+import { allowChangesStyle } from '../CustomTool/Pdf_Embedded/pdfElement-shape-types';
 
 export function getPrimaryColor() {
     return getDefaultColorTheme({ isDarkMode: useIsDarkMode() }).black.solid;
@@ -50,11 +51,7 @@ export function CustomStylePanel() {
     const y_cells = styles.get(yCellsStyle);
     const want_head = styles.get(wantHeadStyle);
     const aspect_ratio = styles.get(aspectRatioStyle);
-
-    //console.log(DefaultColorStyle);
-
-    //console.log("aspect_ratio", aspect_ratio);
-    //console.log("want_head", want_head);
+    const allow_changes = styles.get(allowChangesStyle);
 
     return (
         <DefaultStylePanel>
@@ -135,6 +132,22 @@ export function CustomStylePanel() {
                             editor.markHistoryStoppingPoint();
                             const value = aspectRatioStyle.validate(e.currentTarget.checked);
                             editor.setStyleForSelectedShapes(aspectRatioStyle, value);
+                        }}
+                    />
+                </div>
+            )}
+
+            {allow_changes !== undefined && (
+                <div className="style-panel-section" style={{ marginTop: '16px' }}>
+                    <label className="style-panel-label">Allow Changes</label>
+                    <input
+                        type="checkbox"
+                        className="style-panel-checkbox"
+                        checked={allow_changes.type === 'mixed' ? false : allow_changes.value}
+                        onChange={(e) => {
+                            editor.markHistoryStoppingPoint();
+                            const value = allowChangesStyle.validate(e.currentTarget.checked);
+                            editor.setStyleForSelectedShapes(allowChangesStyle, value);
                         }}
                     />
                 </div>

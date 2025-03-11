@@ -11,14 +11,10 @@ import 'tldraw/tldraw.css';
 import './styles.css';
 import 'katex/dist/katex.min.css';
 
-/*
 import { TableShapeTool } from './CustomTool/Table/TableShapeTool'
 import { TableShapeUtil } from './CustomTool/Table/TableShapeUtil'
-*/
-
-import { TableShapeTool } from './CustomTool/Pdf_Embedded/TableShapeTool';
-import { TableShapeUtil } from './CustomTool/Pdf_Embedded/TableShapeUtil';
-
+import { PdfElementShapeTool } from './CustomTool/Pdf_Embedded/PdfElementShapeTool';
+import { PdfElementShapeUtil } from './CustomTool/Pdf_Embedded/PdfElementShapeUtil';
 import { components, uiOverrides, assetUrls } from './ui-overrides'
 import { LatexShapeTool } from './CustomTool/Latex/LatexShapeTool';
 import { LatexShapeUtil } from './CustomTool/Latex/LatexShapeUtil';
@@ -27,8 +23,8 @@ import { handleExport } from './CustomTool/FileSystem/FileSystem';
 import { SlideShapeTool } from './CustomTool/SlideShow/SlideShapeTool';
 import { SlideShapeUtil } from './CustomTool/SlideShow/SlideShapeUtil';
 
-const customShapeUtils = [TableShapeUtil, LatexShapeUtil, SlideShapeUtil];
-const customTools = [TableShapeTool, LatexShapeTool, SlideShapeTool];
+const customShapeUtils = [TableShapeUtil, LatexShapeUtil, SlideShapeUtil, PdfElementShapeUtil];
+const customTools = [TableShapeTool, LatexShapeTool, SlideShapeTool ,PdfElementShapeTool];
 
 export let defaultRoomId = localStorage.getItem('roomId') || "tldrawFile-1";
 
