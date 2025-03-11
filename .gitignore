@@ -1,4 +1,8 @@
 node_modules
+<<<<<<< HEAD
 vite.config.js
 vite.config server.js
+=======
+>>>>>>> 04dac8b3d4761d98e8a5d38c28d57c0423f7789e
 uploads/
+vite.config.js
