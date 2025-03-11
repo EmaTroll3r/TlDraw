@@ -6,6 +6,10 @@ const cors = require('cors'); // Added this line
 
 const app = express();
 const port = 3001;
+//const endpoint = 'localhost'; /*
+const endpoint = 'affiuccio.duckdns.org';
+//*/
+
 
 app.use(cors()); // Added this line
 app.use(express.json()); // Added this line to parse JSON bodies

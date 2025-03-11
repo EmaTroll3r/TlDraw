@@ -13,7 +13,7 @@ Inside your Tldraw directory
 
 <h1>Running</h1>
 <code>nohup node server.js &</code>
-<code>npm run prod</code>
+<code>nohup npm run prod &</code>
 
 <h1>Issue</h1>
 <code>WebSocket is already in CLOSING or CLOSED state.</code> When I try to import more than ones whitout reloading</br></br>

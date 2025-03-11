@@ -15,7 +15,9 @@ import { PdfElementShapeProps } from './pdfElement-shape-props'
 import { allowChangesStyle, IPdfElementShape } from './pdfElement-shape-types'
 import { defaultRoomId } from '../..';
 
-
+//const endpoint = 'localhost'; /*
+const endpoint = 'affiuccio.duckdns.org';
+//*/
 
 
 export class PdfElementShapeUtil extends ShapeUtil<IPdfElementShape> {
@@ -84,7 +86,7 @@ export class PdfElementShapeUtil extends ShapeUtil<IPdfElementShape> {
                 formData.append('file', file);
 
                 try {
-                    const response = await fetch(`http://localhost:3001/upload?roomId=${roomId}`, {
+                    const response = await fetch(`http://${endpoint}:3001/upload?roomId=${roomId}`, {
                         method: 'POST',
                         body: formData,
                     });
@@ -93,7 +95,7 @@ export class PdfElementShapeUtil extends ShapeUtil<IPdfElementShape> {
                         const data = await response.json();
                         const serverFilePath = `/uploads/${roomId}/pdf/${data.fileName}`;
                         this.updateShapeProps(shape.id, { pdfPath: serverFilePath });
-                        console.log('ok'); // Print 'ok' after successful response
+                        console.log('pdfPath',serverFilePath); // Print 'ok' after successful response
                     } else {
                         console.error('Failed to upload file', response.status, response.statusText);
                     }
