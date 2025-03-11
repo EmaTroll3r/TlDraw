@@ -6,4 +6,5 @@ export const PdfElementShapeProps: RecordProps<IPdfElementShape> = {
 	w: T.number,
 	h: T.number,
 	allowChanges: allowChangesStyle,
+	pdfPath: T.string,
 }

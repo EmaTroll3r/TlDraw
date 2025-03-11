@@ -7,8 +7,7 @@ export default defineConfig({
     outDir: 'dist'
   },
   server: {
-    host: true, // Ascolta su tutte le interfacce di rete
-    port: 8888,
-    allowedHosts: ['affiuccio.duckdns.org'] // Aggiungi l'host consentito
+    host: 'localhost',
+    port: 3000
   }
 });

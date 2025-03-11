@@ -13,6 +13,7 @@ import {
 import { PdfElementShapeMigrations } from './pdfElement-shape-migrations'
 import { PdfElementShapeProps } from './pdfElement-shape-props'
 import { allowChangesStyle, IPdfElementShape } from './pdfElement-shape-types'
+import { defaultRoomId } from '../..';
 
 
 
@@ -39,6 +40,7 @@ export class PdfElementShapeUtil extends ShapeUtil<IPdfElementShape> {
             w: 300,
             h: 300,
             allowChanges: allowChangesStyle.defaultValue || true,
+            pdfPath: '',
         }
     }
 
@@ -52,18 +54,63 @@ export class PdfElementShapeUtil extends ShapeUtil<IPdfElementShape> {
         })
     }
 
+    updateShapeProps(id: string, props: Partial<IPdfElementShape['props']>) {
+            //const shapeUpdate = this.shapeUpdate(id, width, height);
+            this.editor.updateShape<IPdfElementShape>({
+                id: id as TLShapeId,
+                type: 'pdfElement',
+                props: props,
+            });
+        }
 
     // [6]
     component(shape: IPdfElementShape) {
         const bounds = this.editor.getShapeGeometry(shape).bounds
         const theme = getDefaultColorTheme({ isDarkMode: this.editor.user.getIsDarkMode() })
         const allowChanges = shape.props.allowChanges;
-        
-        /*
-        if(!shape.isLocked && !allowChanges) {
-            this.editor.toggleLock([shape.id])
-        }
-        */
+
+
+        const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+            const file = event.target.files?.[0];
+            if (file) {
+                const roomId = defaultRoomId;
+
+                if (!roomId) {
+                    console.error('roomId is not set in localStorage or defaultRoomId');
+                    return;
+                }
+                
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch(`http://localhost:3001/upload?roomId=${roomId}`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const serverFilePath = `/uploads/${roomId}/pdf/${data.fileName}`;
+                        this.updateShapeProps(shape.id, { pdfPath: serverFilePath });
+                        console.log('ok'); // Print 'ok' after successful response
+                    } else {
+                        console.error('Failed to upload file', response.status, response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            }
+        };
+
+        React.useEffect(() => {
+            if (shape.props.pdfPath === '') {
+                document.getElementById(`file-input-${shape.id}`)?.click();
+            }
+            
+        }, []);
+
+        console.log("pdfPath: ", shape.props.pdfPath);
 
         return (
             <HTMLContainer
@@ -79,8 +126,15 @@ export class PdfElementShapeUtil extends ShapeUtil<IPdfElementShape> {
                     height: '100%',
                 }}
             >   
+                <input
+                    id={`file-input-${shape.id}`}
+                    type="file"
+                    accept="application/pdf"
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                />
                 <object
-                    data="pdf/input2.pdf"
+                    data={shape.props.pdfPath}
                     type="application/pdf"
                     width="100%"
                     height="100%"

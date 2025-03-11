@@ -14,5 +14,6 @@ export type IPdfElementShape = TLBaseShape<
 		w: number
 		h: number
 		allowChanges: AllowChangesStyle
+		pdfPath: string
 	}
 >

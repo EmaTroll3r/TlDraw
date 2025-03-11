@@ -6,10 +6,12 @@ Inside your Tldraw directory
 <code>npm install tldraw</code></br>
 <code>npm install @tldraw/sync</code></br>
 <code>npm install vite</code></br>
+<code>npm install cors</code></br>
 <code>npm install @vitejs/plugin-react --save-dev</code>
 
 
 <h1>Running</h1>
+<code>nohup node server.js &</code>
 <code>npm run prod</code>
 
 <h1>Issue</h1>
