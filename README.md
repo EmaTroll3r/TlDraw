@@ -7,6 +7,7 @@ Inside your Tldraw directory
 <code>npm install @tldraw/sync</code></br>
 <code>npm install vite</code></br>
 <code>npm install cors</code></br>
+<code>npm install multer</code></br>
 <code>npm install @vitejs/plugin-react --save-dev</code>
 
 
