@@ -2,3 +2,4 @@ node_modules
 uploads/
 vite.config.js
 vite.config server.js
+run.cmd
