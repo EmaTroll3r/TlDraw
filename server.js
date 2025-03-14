@@ -6,6 +6,7 @@ const cors = require('cors'); // Added this line
 
 const app = express();
 const port = 3001;
+
 //const endpoint = 'localhost'; /*
 const endpoint = 'affiuccio.duckdns.org';
 //*/
@@ -44,5 +45,5 @@ app.post('/upload', upload.single('file'), (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at http://${endpoint}:${port}`);
 });
