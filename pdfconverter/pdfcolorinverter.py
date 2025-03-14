@@ -33,4 +33,5 @@ def invert_color_pdf(input_pdf_path, output_folder, filter_level=100, resolution
         final_image.save(output_image_path, format="PNG", optimize=True, quality=95)
 
 # Esempio di utilizzo
-invert_color_pdf("mc01_embedded_systems.pdf", "C:\\Users\\Utente\\Downloads", filter_level=100, resolution=2)
+invert_color_pdf("2025_03_10_Precisione a regime.pdf", "", filter_level=100, resolution=2)
+input()
