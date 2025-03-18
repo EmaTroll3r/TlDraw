@@ -8,12 +8,13 @@ Inside your Tldraw directory
 <code>npm install vite</code></br>
 <code>npm install cors</code></br>
 <code>npm install multer</code></br>
+<code>npm install dropbox-v2-api</code></br>
 <code>npm install @vitejs/plugin-react --save-dev</code>
 
 
 <h1>Running</h1>
-<code>nohup node server.js &</code>
-<code>nohup npm run prod &</code>
+<code>nohup node server.js &</code></br>
+<code>npm run prod</code>
 
 <h1>Issue</h1>
 <code>WebSocket is already in CLOSING or CLOSED state.</code> When I try to import more than ones whitout reloading</br></br>

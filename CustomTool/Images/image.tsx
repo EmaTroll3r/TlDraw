@@ -24,7 +24,7 @@ export async function import_images(editor: any, files: FileList) {
     // Puoi fare qualsiasi operazione necessaria con l'array shapeIds qui
     const groupid = createShapeId();
     editor.groupShapes(shapeIds, { groupId: groupid, select: false });
-    editor.sendBack([groupid])
+    editor.sendToBack([groupid])
     editor.toggleLock([groupid]);
     /*
     setTimeout(() => {
