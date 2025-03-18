@@ -8,9 +8,6 @@ def invert_color_pdf(input_pdf_path, output_folder, filter_level=100, resolution
 
     output_folder = os.path.join(output_folder, pdf_name)
 
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
     num_pages = len(pdf_document)
 
     for page_number in range(num_pages):
@@ -33,4 +30,33 @@ def invert_color_pdf(input_pdf_path, output_folder, filter_level=100, resolution
         final_image.save(output_image_path, format="PNG", optimize=True, quality=95)
 
 # Esempio di utilizzo
-invert_color_pdf("mc01_embedded_systems.pdf", "C:\\Users\\Utente\\Downloads", filter_level=100, resolution=2)
+
+input_folder = os.getcwd()
+output_folder = "C:\\Users\\Utente\\Downloads"
+
+
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+print("Start processing PDF files")
+
+for filename in os.listdir(input_folder):
+    if filename.endswith(".pdf"):
+        input_path = os.path.join(input_folder, filename)
+        output_path = os.path.join(output_folder, filename)
+        
+        # Crea la cartella di output per il file PDF se non esiste
+        output_pdf_folder = os.path.splitext(output_path)[0]
+        if not os.path.exists(output_pdf_folder):
+            os.makedirs(output_pdf_folder)
+
+        # Applica la funzione invert_color_pdf
+        print(f"Processing {filename}")
+        invert_color_pdf(input_path, output_folder, filter_level=100, resolution=2)
+        
+        print(f"\t\tDeleting {filename}")
+        os.remove(input_path)
+
+input("Done!")
+
+        
