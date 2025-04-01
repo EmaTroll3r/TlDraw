@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
 	DefaultKeyboardShortcutsDialog,
@@ -20,6 +20,11 @@ import {
 	PreferencesGroup,
     TldrawUiMenuSubmenu,
 	computed,
+	DefaultQuickActions,
+	DefaultQuickActionsContent,
+	DefaultPageMenu,
+	TldrawUiButton,
+	TldrawUiButtonIcon,
 } from 'tldraw'
 
 //import { PdfPicker, Pdf } from './CustomTool/Pdf_Example/PdfPicker';
@@ -33,6 +38,49 @@ import { SlidesPanel } from './CustomTool/SlideShow/SlidesPanel';
 import { getSlides, $currentSlide, moveToSlide } from './CustomTool/SlideShow/useSlides';
 import './CustomTool/SlideShow/slides.css'
 import { CustomStylePanel } from './StylePanel/CustomStylePanel';
+import { defaultRoomId } from '.';
+
+
+//let roomId = defaultRoomId;
+
+function CustomPageMenu() {
+	const roomId = localStorage.getItem('roomId') || defaultRoomId;
+    
+    const handleClick = () => {
+        alert('clicked');
+    };
+
+    return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+			{/* <DefaultPageMenu /> 
+            <TldrawUiButton
+                type="menu"
+                title="{currentPage.name}"
+                data-testid="page-menu.button"
+                className="tlui-page-menu__trigger"
+                onClick={handleClick}
+            >
+                <div className="tlui-page-menu__name">
+                    {roomId.startsWith('tldrawFile-') ? roomId.replace('tldrawFile-', '') : roomId}
+                </div>
+                <TldrawUiButtonIcon icon="chevron-down" small />
+            </TldrawUiButton>
+			*/}
+            <DefaultPageMenu />
+        </div>
+    );
+}
+
+function CustomQuickActions() {
+	return (
+		<DefaultQuickActions>
+			<DefaultQuickActionsContent />
+			<div>
+				<TldrawUiMenuItem id="code" icon="code" onSelect={() => window.alert('code')} />
+			</div>
+		</DefaultQuickActions>
+	)
+}
 
 
 function CustomMainMenu() {
@@ -49,7 +97,7 @@ function CustomMainMenu() {
     };
 
 	// <DefaultMainMenuContent /> 
-	// packages/tldraw/src/lib/ui/components/MainMenu/DefaultMainMenuContent.tsx
+	// node_modules/tldraw/src/lib/ui/components/MainMenu/DefaultMainMenuContent.tsx
 	
     const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -77,6 +125,12 @@ function CustomMainMenu() {
                 </TldrawUiMenuGroup>
                 <PreferencesGroup />
             </DefaultMainMenu>
+
+			{/*
+			<DefaultQuickActions>
+				<TldrawUiMenuItem id="code" icon="Code" onSelect={() => window.alert('code')} />
+			</DefaultQuickActions>
+			*/}
             
             <input
                 type="file"
@@ -96,8 +150,12 @@ function FileSubmenu() {
     const handleChangeFile = () => {
         const input = prompt('Please enter the file name:');
         if (input) {
+            const newRoomId = 'tldrawFile-' + input;
             console.log(`File name entered: ${input}`);
-            roomIdManager('tldrawFile-' + input);
+            roomIdManager(newRoomId);
+            if ((window as any).onRoomIdChange) {
+                (window as any).onRoomIdChange(newRoomId);
+            }
         }
     };
 
@@ -221,8 +279,9 @@ export const components: TLComponents = {
 				<TldrawUiMenuItem {...tools['draw']} isSelected={useIsToolSelected(tools['draw'])} />
 				<TldrawUiMenuItem {...tools['eraser']} isSelected={useIsToolSelected(tools['eraser'])} />
 				
-				<TldrawUiMenuItem {...tools['pdfElement']} isSelected={useIsToolSelected(tools['pdfElement'])} />
+				
 				{/*
+				<TldrawUiMenuItem {...tools['pdfElement']} isSelected={useIsToolSelected(tools['pdfElement'])} />
 				<TldrawUiMenuItem {...tools['latex']} isSelected={useIsToolSelected(tools['latex'])} />
 				*/}
 				
@@ -271,7 +330,8 @@ export const components: TLComponents = {
 	},
 	StylePanel: CustomStylePanel,
 	MainMenu: CustomMainMenu,
-	HelperButtons: SlidesPanel,
+	HelperButtons: SlidesPanel,	
+	PageMenu: CustomPageMenu,
 }
 
 
