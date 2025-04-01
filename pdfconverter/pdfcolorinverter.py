@@ -33,6 +33,7 @@ def invert_color_pdf(input_pdf_path, output_folder, filter_level=100, resolution
 
 input_folder = os.getcwd()
 output_folder = "C:\\Users\\Utente\\Downloads"
+new_path = "C:\Users\Utente\OneDrive\L-8 Terzo Anno\NEW"
 
 
 if not os.path.exists(output_folder):
@@ -54,8 +55,10 @@ for filename in os.listdir(input_folder):
         print(f"Processing {filename}")
         invert_color_pdf(input_path, output_folder, filter_level=100, resolution=2)
         
-        print(f"\t\tDeleting {filename}")
-        os.remove(input_path)
+        print(f"\t\tMoving {filename}")
+        
+        os.makedirs(os.path.dirname(new_path), exist_ok=True)
+        os.rename(input_path, new_path)
 
 input("Done!")
 
