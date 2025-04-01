@@ -32,21 +32,24 @@ let root: ReactDOM.Root | null = null;
 
 export function App({ roomId }: { roomId: string }) {
     const store = useSyncDemo({ roomId, shapeUtils: customShapeUtils });
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div style={{ position: 'fixed', inset: 0 }}>
-            <Tldraw
-                shapeUtils={customShapeUtils}
-                tools={customTools}
-                overrides={uiOverrides}
-                components={components}
-                assetUrls={assetUrls}
-                onMount={(editor) => {
-                    editor.updateInstanceState({ isGridMode: true });
-                    editor.user.updateUserPreferences({ colorScheme: 'dark' })
-                }}
-                store={store}
-            />
+        <div style={{ position: 'fixed', inset: 0, display: 'flex' }}>
+            <div style={{ flex: 1 }}>
+                <Tldraw
+                    shapeUtils={customShapeUtils}
+                    tools={customTools}
+                    overrides={uiOverrides}
+                    components={components}
+                    assetUrls={assetUrls}
+                    onMount={(editor) => {
+                        editor.updateInstanceState({ isGridMode: true });
+                        editor.user.updateUserPreferences({ colorScheme: 'dark' });
+                    }}
+                    store={store}
+                />
+            </div>
         </div>
     );
 }
